@@ -6,7 +6,7 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "John Doe"
+(setq user-full-name "M1racle"
       user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
@@ -23,7 +23,7 @@
 ;;
 ;sdfy
 ;y
-;;(setq doom-font (font-spec :family "Fira Sans" :size 14 :weight 'bold)
+(setq doom-font (font-spec :family "MesloLGS NF" :size 24 :style 'bold))
       ;;doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 ;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'semi-light))
@@ -40,7 +40,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -79,6 +79,16 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 ;;
-;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+;
+(after! rustic
+  (setq rustic-lsp-server 'rust-analyzer))
 
-(set-eglot-client! 'cc-mode '("clangd" "-j=3" "--clang-tidy"))
+(after! lsp-clangd
+  (setq lsp-clients-clangd-args
+        '("-j=3"
+          "--background-index"
+          "--clang-tidy"
+          "--completion-style=detailed"
+          "--header-insertion=never"
+          "--header-insertion-decorators=0"))
+  (set-lsp-priority! 'clangd 2))
