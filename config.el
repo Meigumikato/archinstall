@@ -1,4 +1,4 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
@@ -23,7 +23,7 @@
 ;;
 ;sdfy
 ;y
-(setq doom-font (font-spec :family "MesloLGS NF" :size 24 :style 'bold))
+(setq doom-font (font-spec :family "MesloLGS NF" :size 15 :style 'bold))
       ;;doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 ;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'semi-light))
@@ -80,6 +80,12 @@
 ;; they are implemented.
 ;;
 ;
+
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier nil))
+
+
 (after! rustic
   (setq rustic-lsp-server 'rust-analyzer))
 
