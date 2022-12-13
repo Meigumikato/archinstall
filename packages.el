@@ -51,9 +51,9 @@
 
 (package! tldr)
 
-(package! magit-delta 
-          :recipe (:host github 
-                   :repo "dandavison/magit-delta") 
+(package! magit-delta
+          :recipe (:host github
+                   :repo "dandavison/magit-delta")
           :pin "56cdffd377279589aa0cb1df99455c098f1848cf")
 
 (package! modus-themes :pin "a42c1710389eab741bb2921b575e3fa7b678eddd")
@@ -62,3 +62,8 @@
   :recipe (:host github :repo "Fuco1/org-pretty-table") :pin "7bd68b420d3402826fea16ee5099d04aa9879b78")
 
 (package! org-super-agenda)
+;; (package! posframe :recipe (:host github :repo "tumashu/posframe"))
+;; (package! lsp-bridge
+;;           :recipe (:host github
+;;                    :repo "manateelazycat/lsp-bridge"))
+

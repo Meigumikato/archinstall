@@ -23,7 +23,7 @@
 ;;
 ;sdfy
 ;y
-(setq doom-font (font-spec :family "MesloLGS NF" :size 15 :style 'bold))
+(setq doom-font (font-spec :family "MesloLGS NF" :size 23 :style 'bold))
       ;;doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 ;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'semi-light))
@@ -36,7 +36,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-one)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -80,6 +80,13 @@
 ;; they are implemented.
 ;;
 ;
+
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
+
+;; (require 'lsp-bridge)
+;; (global-lsp-bridge-mode)
+
 (setq org-journal-file-format "%Y-%m-%d.org")
 
 (when (eq system-type 'darwin)

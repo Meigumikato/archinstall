@@ -30,12 +30,12 @@
                 )           ; the ultimate code completion backend
        ;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;; (ivy +childframe
-       ;;      +icons
-       ;;      +fuzzy
-       ;;      +prescient
-       ;;      )            ; a search engine for love and life
-       (vertico +icons)           ; the search engine of the future
+       (ivy +childframe
+            +icons
+            +fuzzy
+            +prescient
+            )            ; a search engine for love and life
+       ;;(vertico +icons)           ; the search engine of the future
 
        :ui
        deft              ; notational velocity for Emacs
@@ -54,8 +54,7 @@
        ophints            ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
        ;;tabs              ; a tab bar for Emacs
-       (treemacs +lsp          ; a project drawer, like neotree but cooler
-                 )
+       ;;(treemacs +lsp)          ; a project drawer, like neotree but cooler
        unicode           ; extended unicode support for various languages
        (vc-gutter +pretty) ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
@@ -102,7 +101,7 @@
        debugger            ; FIXME stepping through code, to help you add bugs
        direnv
        ;;docker
-       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       ;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
@@ -111,6 +110,7 @@
                )
                            ; navigate your code and its documentation
        (lsp +peek)         ; M-x vscode
+       ;;lsp-bridge
        magit               ; a git porcelain for Emacs
        make                ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -173,7 +173,7 @@
        (lua +lsp
             +tree-sitter
             )               ; one-based indices? one-based indices
-       markdown          ; writing docs for people to ignore
+       ;;markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
@@ -193,8 +193,7 @@
        ;;rest              ; Emacs as a REST client
        ;;rst               ; ReST in peace
        ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
-       (rust +lsp
-             )         ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       (rust +lsp)         ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
        (sh +lsp               ; she sells {ba,z,fi}sh shells on the C xor
