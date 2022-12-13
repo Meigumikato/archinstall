@@ -80,6 +80,7 @@
 ;; they are implemented.
 ;;
 ;
+(setq org-journal-file-format "%Y-%m-%d.org")
 
 (when (eq system-type 'darwin)
   (setq mac-command-modifier 'meta)
@@ -98,3 +99,43 @@
           "--header-insertion=never"
           "--header-insertion-decorators=0"))
   (set-lsp-priority! 'clangd 2))
+
+;; tramp
+(after! tramp
+  (setenv "SHELL" "/bin/bash")
+  (setq tramp-shell-prompt-pattern "\\(?:^\\|
+\\)[^]#$%>\n]*#?[]#$%>] *\\(\\[[0-9;]*[a-zA-Z] *\\)*"))
+
+;; :core package
+;; which key popup faster
+(setq which-key-idle-delay 0.5)
+
+;; yasnippet
+(setq yas-triggers-in-field t)
+
+;; :tools eval
+(setq eros-eval-result-prefix "⟹ ")
+
+;; :tool magit
+(add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+
+;; :completion company
+(setq-default history-length 1000)
+(setq-default prescient-history-length 1000)
+
+(after! company
+  (setq company-idle-delay 0.5
+        company-minimum-prefix-length 2)
+  (setq company-show-quick-access t)
+  (add-hook 'evil-normal-state-entry-hook #'company-abort))
+
+(set-company-backend! 'ess-r-mode '(company-R-args company-R-objects company-dabbrev-code :separate))
+
+;; :core packages
+(setq projectile-ignored-projects '("~/" "/tmp" "~/.emacs.d/.local/straight/repos/"))
+
+
+;; org
+(use-package! org-pretty-table
+  :commands (org-pretty-table-mode
+             global-org-pretty-table-mode))
