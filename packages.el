@@ -51,10 +51,7 @@
 
 (package! tldr)
 
-(package! magit-delta
-          :recipe (:host github
-                   :repo "dandavison/magit-delta")
-          :pin "56cdffd377279589aa0cb1df99455c098f1848cf")
+(package! magit-delta)
 
 (package! modus-themes :pin "a42c1710389eab741bb2921b575e3fa7b678eddd")
 

@@ -23,7 +23,7 @@
 ;;
 ;sdfy
 ;y
-(setq doom-font (font-spec :family "MesloLGS NF" :size 23 :style 'bold))
+(setq doom-font (font-spec :family "MesloLGS NF" :size 13 :style 'bold))
       ;;doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 ;; (setq doom-font (font-spec :family "Fira Code" :size 14 :weight 'semi-light))
@@ -81,6 +81,14 @@
 ;;
 ;
 
+
+(require 'lsp-mode)
+(lsp-register-client
+    (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+                     :major-modes '(c++-mode)
+                     :remote? t
+                     :server-id 'clangdls-remote))
+
 ;; (require 'yasnippet)
 ;; (yas-global-mode 1)
 
@@ -124,7 +132,8 @@
 (setq eros-eval-result-prefix "⟹ ")
 
 ;; :tool magit
-(add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+(use-package magit-delta
+  :hook (magit-mode . magit-delta-mode))
 
 ;; :completion company
 (setq-default history-length 1000)
