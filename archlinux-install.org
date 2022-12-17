@@ -4,25 +4,35 @@
 ** TODO Pre-install
 *** connect network
 **** connect wifi
+#+begin_src bash
 iwctl
 station list # list avialiable device
 station {device} scan # scan nearby wifi network
 station {device} get-networks # list avialiable network
 station {device} connet {network-name}
+#+end_src
 **** test network
+#+begin_src bash
 ping 8.8.8.8
 ping www.baidu.com
+#+end_src
 *** selecr best arch mirrors
+#+begin_src bash
 pacman -Sy
 pacman -S reflector
 reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+#+end_src
 *** partition disk
+#+begin_src bash
 fdisk -l #show avialiable disk
-cfdisk /dev/{disk} #partition
+cfdisk /dev/{disk} #partition -> root | efi | swap
+#+end_src
 *** format partitions
+#+begin_src bash
 mkfs.fat -F 32 /dev/{efi-partition}
 mkfs.ext4 /dev/{root-partition}
 mkswap /dev/{swap-partition}
+#+end_src
 *** mount partitions
 #+begin_example
 swapon /dev/{swap-partition}
@@ -31,64 +41,111 @@ mount --mkdir /dev/{efi-partition} /mnt/efi
 #+end_example
 ** TODO Installation
 *** update the system clcok
+#+begin_src bash
 timedatectl set-ntp true
+#+end_src
 *** install arch necessary packages
+#+begin_src bash
 pacstrap /mnt base base-devel openssh linux linux-frmware neovim vim iwd dhcpcd bash-complation
+#+end_src
 *** generate fatab file
+#+begin_src bash
 genfatab -U /mnt >> /mnt/etc/fstab
+#+end_src
 *** Basic Configuration
 **** enter system
+#+begin_src bash
 arch-chroot /mnt
+#+end_src
 **** language settings
+#+begin_src bash
 nvim /etc/locale.gen # uncomment the language of your chorce, for example en_US.UTF-8.
+#+end_src
 **** configure timezone
+#+begin_src bash
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc
+#+end_src
 **** networkmanager
+#+begin_src bash
 pacman -S dhcpcd networkmanager network-manager-applet polkit
 systemctl enable dhcpcd
 systemctl enable NetworkManager
+#+end_src
 **** install bootloader
+#+begin_src bash
 pacman -S grub efibootmgr
+#+end_src
 **** hostname setting
+#+begin_src
 ehco "{hostname}" > /etc/hostname
 
 nvim /etc/hosts
+#+end_src
+
+exampe for hosts file content
 #+begin_example
 127.0.0.1 localhost
 ::1       localhost
 127.0.1.1 {hostname}
 #+end_example
 **** Intall other useful packages
-pacman -S iw wpa_supplicant dialog intel-ucode amd-ucode git refector lshw unzip htop
-pacman -S wget
-pacman -S pulseaudio alsa-utils alsa-plugins pavucontrol xdg-user-dirs # audio
+#+begin_src bash
+pacman -S iw wpa_supplicant dialog intel-ucode amd-ucode git refector lshw unzip htop wget
+pacman -S xdg-user-dirs # XDG directory layout
+pacman -S pulseaudio alsa-utils alsa-plugins pavucontrol  # Audio
+#+end_src
 **** update root password
-passwd
+#+begin_src bash
+passwd # modify root passwd
+#+end_src
 **** final steps
+#+begin_src bash
 exit
 umount -R /mnt
-swapoff /dev/{swap-partition}
+swapoff /dev/{swap-partition} # optional
 reboot
+#+end_src
 ** TODO Post-install
 *** add user
+#+begin_src bash
 useradd -m -g users -G wheel,storage,power,audio {username}
 passwd {username}
+#+end_src
 *** grant root access
+#+begin_src bash
 sudo nvim /etc/sudoers
-%wheel ALL=(ALL) ALL #uncomment this line
+#+end_src
+
+*uncomment below line*
+#+begin_example
+%wheel ALL=(ALL) ALL
+#+end_example
+
 *** login into user
+#+begin_src bash
 su - {username}
 xdg-user-dirs-update
+#+end_src
 *** install AUR package manager
+#+begin_src bash
+# install yay
 git clone https://aut.arhclinux.org/yay.git
 cd yay && makepkg -si
-*** coolest pacman
-If you want to make Pacman look cooler you can edit the configuration file and uncomment the Color option and add just below the ILoveCandy option.
-
+# install paru
+cargo install paru
+#+end_src
+*** coolest pacman (optional)
+If you want to make Pacman look cooler you can edit the configuration file and uncomment the *Color* option and add just below the *ILoveCandy* option.
+#+begin_src bash
 sudo vim /etc/pacman.conf
-*** PulseAudio applet
+#+end_src
+*** PulseAudio applet (optional)
+#+begin_src bash
 yay -S pa-applet-git
-*** manage Bluetooth
+#+end_src
+*** manage Bluetooth (optional)
+#+begin_src bash
 sudo pacman -S bluez bluez-utils blueman
 sudo systemctl enable bluetooth
+#+end_src
