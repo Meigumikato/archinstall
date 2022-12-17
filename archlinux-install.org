@@ -2,8 +2,8 @@
 
 * ArchLinux Install Guide
 ** TODO Pre-install
-*** connect network
-**** connect wifi
+*** Connect network
+**** Connect wifi
 #+begin_src bash
 iwctl
 station list # list avialiable device
@@ -11,72 +11,72 @@ station {device} scan # scan nearby wifi network
 station {device} get-networks # list avialiable network
 station {device} connet {network-name}
 #+end_src
-**** test network
+**** Test network
 #+begin_src bash
 ping 8.8.8.8
 ping www.baidu.com
 #+end_src
-*** selecr best arch mirrors
+*** Selecr best arch mirrors
 #+begin_src bash
 pacman -Sy
 pacman -S reflector
 reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 #+end_src
-*** partition disk
+*** Partition disk
 #+begin_src bash
 fdisk -l #show avialiable disk
 cfdisk /dev/{disk} #partition -> root | efi | swap
 #+end_src
-*** format partitions
+*** Format partitions
 #+begin_src bash
 mkfs.fat -F 32 /dev/{efi-partition}
 mkfs.ext4 /dev/{root-partition}
 mkswap /dev/{swap-partition}
 #+end_src
-*** mount partitions
+*** Mount partitions
 #+begin_example
 swapon /dev/{swap-partition}
 mount /dev/{root-partition} /mnt
 mount --mkdir /dev/{efi-partition} /mnt/efi
 #+end_example
 ** TODO Installation
-*** update the system clcok
+*** Update the system clcok
 #+begin_src bash
 timedatectl set-ntp true
 #+end_src
-*** install arch necessary packages
+*** Install arch necessary packages
 #+begin_src bash
 pacstrap /mnt base base-devel openssh linux linux-frmware neovim vim iwd dhcpcd bash-complation
 #+end_src
-*** generate fatab file
+*** Generate fatab file
 #+begin_src bash
 genfatab -U /mnt >> /mnt/etc/fstab
 #+end_src
-*** Basic Configuration
-**** enter system
+*** basic Configuration
+**** Enter system
 #+begin_src bash
 arch-chroot /mnt
 #+end_src
-**** language settings
+**** Language settings
 #+begin_src bash
 nvim /etc/locale.gen # uncomment the language of your chorce, for example en_US.UTF-8.
 #+end_src
-**** configure timezone
+**** Configure timezone
 #+begin_src bash
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc
 #+end_src
-**** networkmanager
+**** Networkmanager
 #+begin_src bash
 pacman -S dhcpcd networkmanager network-manager-applet polkit
 systemctl enable dhcpcd
 systemctl enable NetworkManager
 #+end_src
-**** install bootloader
+**** Install bootloader
 #+begin_src bash
 pacman -S grub efibootmgr
 #+end_src
-**** hostname setting
+**** Hostname setting
 #+begin_src
 ehco "{hostname}" > /etc/hostname
 
@@ -89,17 +89,17 @@ exampe for hosts file content
 ::1       localhost
 127.0.1.1 {hostname}
 #+end_example
-**** Intall other useful packages
+**** intall other useful packages
 #+begin_src bash
 pacman -S iw wpa_supplicant dialog intel-ucode amd-ucode git refector lshw unzip htop wget
 pacman -S xdg-user-dirs # XDG directory layout
 pacman -S pulseaudio alsa-utils alsa-plugins pavucontrol  # Audio
 #+end_src
-**** update root password
+**** Update root password
 #+begin_src bash
 passwd # modify root passwd
 #+end_src
-**** final steps
+**** Final steps
 #+begin_src bash
 exit
 umount -R /mnt
@@ -107,12 +107,12 @@ swapoff /dev/{swap-partition} # optional
 reboot
 #+end_src
 ** TODO Post-install
-*** add user
+*** Add user
 #+begin_src bash
 useradd -m -g users -G wheel,storage,power,audio {username}
 passwd {username}
 #+end_src
-*** grant root access
+*** Grant new user root access
 #+begin_src bash
 sudo nvim /etc/sudoers
 #+end_src
@@ -122,12 +122,12 @@ sudo nvim /etc/sudoers
 %wheel ALL=(ALL) ALL
 #+end_example
 
-*** login into user
+*** Login into user
 #+begin_src bash
 su - {username}
 xdg-user-dirs-update
 #+end_src
-*** install AUR package manager
+*** Install AUR package manager
 #+begin_src bash
 # install yay
 git clone https://aut.arhclinux.org/yay.git
@@ -135,7 +135,7 @@ cd yay && makepkg -si
 # install paru
 cargo install paru
 #+end_src
-*** coolest pacman (optional)
+*** Coolest pacman (optional)
 If you want to make Pacman look cooler you can edit the configuration file and uncomment the *Color* option and add just below the *ILoveCandy* option.
 #+begin_src bash
 sudo vim /etc/pacman.conf
@@ -144,7 +144,7 @@ sudo vim /etc/pacman.conf
 #+begin_src bash
 yay -S pa-applet-git
 #+end_src
-*** manage Bluetooth (optional)
+*** Manage Bluetooth (optional)
 #+begin_src bash
 sudo pacman -S bluez bluez-utils blueman
 sudo systemctl enable bluetooth
