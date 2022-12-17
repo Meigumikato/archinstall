@@ -1,4 +1,6 @@
-#+title: Reanme
+#+title: i3 config
+#+author: miracle
+#+date: <2022-12-17 Sat>
 
 * i3 configuration
 ** TODO i3 install

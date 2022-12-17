@@ -1,4 +1,9 @@
-#+title: Readme
+#+title: dofile
+#+author: miracle
+#+date: <2022-12-17 Sat>
 
 * Describe
-This is my personal dot file
+This is my personal i3 windows manager dot file
+
+* Config
+[[file:.config/README.org][Window Manager Config]]

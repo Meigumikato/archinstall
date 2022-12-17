@@ -1,5 +1,6 @@
 #+title: window-manager-config
 #+author: miracle
+#+date: <2022-12-17 Sat>
 
 * WM config
 ** google-chrome
@@ -9,6 +10,4 @@ flag: *--force-device-scale-factor=1.5*
 *** proxy
 flag: *--proxy-server=host:port*
 ** TODO i3
-*** status bar
-*** Hidpi
-*** keymap
+[[file:i3/README.org][i3 configuration]]

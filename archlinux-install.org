@@ -1,4 +1,6 @@
 #+title: ArchLinux Install
+#+author: miracle
+#+date: <2022-12-17 Sat>
 
 * ArchLinux Install Guide
 ** TODO Pre-install
