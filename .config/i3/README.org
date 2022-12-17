@@ -1,0 +1,33 @@
+#+title: Reanme
+
+* i3 configuration
+** TODO i3 install
+*** install graphical environment and i3
+sudo pacman -S xorg-server xorg xorg-init
+sudo pacman -S i3-wm i3blocks i3lock numlockx
+*** install display manager
+sudo pacman -S lightdm lightdm-gtk-greeter --needed
+sudo systemctl enable lightdm
+*** install some basic fonts
+sudo pacman -S no
+to-fonts-cjk noto-fonts-emoji noto-fonts-extra
+sudo pacman -S adobe-source-han-serif-cn-fonts wqy-zenhei
+sudo pacman -S noto-fonts ttf-ubuntu-font-family ttf-dejavu ttf-freefont
+sudo pacman -S ttf-liberation ttf-droid ttf-roboto terminus-font ttf-font-awesome
+*** install useful tools on i3
+sudo pacman -S rxvt-unicode ranger rofi
+*** install GUI programs
+sudo pacman -S firefox
+*** customize lightdm
+sudo pacman -S lxappearance
+sudo pacman -S arc-gtk-theme
+sudo pacman -S papirus-icons-theme
+sudo nvim /etc/lightdm/lightdm-gtk-greeter.conf
+<#+begin_example
+   [greeter]
+   theme-name = Arc-Dark
+   icon-theme-name = Papirus-Dark
+   background = #2f343f
+#+end_example
+** TODO i3 status bar
+i3status -c /path/to/config # set i3status config file

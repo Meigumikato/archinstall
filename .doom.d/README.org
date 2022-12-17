@@ -1,0 +1,52 @@
+#+title: doomemacs config
+#+author: miracle
+
+* doom emacs config
+** theme
+*** archlinux
+*** macos
+** font
+(usually used font)
+*** MesloLGS NF (perfer)
+**** Installation
+***** archlinux:
+yay(paru) -S ttf-meslo-nerd-font-powerlevel10k
+***** TODO macos:
+
+**** Configuration
+default config
+(default config)
+** tools
+*** pdf
+**** Installation
+***** archlinux
+paru -s emacs-pdf-tools
+***** macos
+
+**** Configuration
+enable doom pdf config
+*** magit-delta
+**** Installation
+doom package macro
+**** Configuration
+use-package config:
+#+begin_src elisp
+(use-package magit-delta
+  :hook (magit-mode . magit-delta-mode))
+#+end_src
+
+*** TODO tramp
+**** Installation
+**** Configuration
+** lang
+*** cpp
+**** Installation
+(LSP server)
+***** archlinux
+sudo pacmans -S llvm
+***** macso
+brew install llvm
+*** rust
+cargo install rust-analayze
+*** TODO python
+** TODO custom module

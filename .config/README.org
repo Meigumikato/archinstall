@@ -1,0 +1,14 @@
+#+title: window-manager-config
+#+author: miracle
+
+* WM config
+** google-chrome
+config file *$HOME/.config/chrome-flags.conf*
+*** scale
+flag: *--force-device-scale-factor=1.5*
+*** proxy
+flag: *--proxy-server=host:port*
+** TODO i3
+*** status bar
+*** Hidpi
+*** keymap

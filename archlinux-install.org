@@ -1,0 +1,94 @@
+#+title: ArchLinux Install
+
+* ArchLinux Install Guide
+** TODO Pre-install
+*** connect network
+**** connect wifi
+iwctl
+station list # list avialiable device
+station {device} scan # scan nearby wifi network
+station {device} get-networks # list avialiable network
+station {device} connet {network-name}
+**** test network
+ping 8.8.8.8
+ping www.baidu.com
+*** selecr best arch mirrors
+pacman -Sy
+pacman -S reflector
+reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+*** partition disk
+fdisk -l #show avialiable disk
+cfdisk /dev/{disk} #partition
+*** format partitions
+mkfs.fat -F 32 /dev/{efi-partition}
+mkfs.ext4 /dev/{root-partition}
+mkswap /dev/{swap-partition}
+*** mount partitions
+#+begin_example
+swapon /dev/{swap-partition}
+mount /dev/{root-partition} /mnt
+mount --mkdir /dev/{efi-partition} /mnt/efi
+#+end_example
+** TODO Installation
+*** update the system clcok
+timedatectl set-ntp true
+*** install arch necessary packages
+pacstrap /mnt base base-devel openssh linux linux-frmware neovim vim iwd dhcpcd bash-complation
+*** generate fatab file
+genfatab -U /mnt >> /mnt/etc/fstab
+*** Basic Configuration
+**** enter system
+arch-chroot /mnt
+**** language settings
+nvim /etc/locale.gen # uncomment the language of your chorce, for example en_US.UTF-8.
+**** configure timezone
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+hwclock --systohc
+**** networkmanager
+pacman -S dhcpcd networkmanager network-manager-applet polkit
+systemctl enable dhcpcd
+systemctl enable NetworkManager
+**** install bootloader
+pacman -S grub efibootmgr
+**** hostname setting
+ehco "{hostname}" > /etc/hostname
+
+nvim /etc/hosts
+#+begin_example
+127.0.0.1 localhost
+::1       localhost
+127.0.1.1 {hostname}
+#+end_example
+**** Intall other useful packages
+pacman -S iw wpa_supplicant dialog intel-ucode amd-ucode git refector lshw unzip htop
+pacman -S wget
+pacman -S pulseaudio alsa-utils alsa-plugins pavucontrol xdg-user-dirs # audio
+**** update root password
+passwd
+**** final steps
+exit
+umount -R /mnt
+swapoff /dev/{swap-partition}
+reboot
+** TODO Post-install
+*** add user
+useradd -m -g users -G wheel,storage,power,audio {username}
+passwd {username}
+*** grant root access
+sudo nvim /etc/sudoers
+%wheel ALL=(ALL) ALL #uncomment this line
+*** login into user
+su - {username}
+xdg-user-dirs-update
+*** install AUR package manager
+git clone https://aut.arhclinux.org/yay.git
+cd yay && makepkg -si
+*** coolest pacman
+If you want to make Pacman look cooler you can edit the configuration file and uncomment the Color option and add just below the ILoveCandy option.
+
+sudo vim /etc/pacman.conf
+*** PulseAudio applet
+yay -S pa-applet-git
+*** manage Bluetooth
+sudo pacman -S bluez bluez-utils blueman
+sudo systemctl enable bluetooth
