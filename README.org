@@ -6,4 +6,8 @@
 This is my personal i3 windows manager dot file
 
 * Config
+** WM Config
 [[file:.config/README.org][Window Manager Config]]
+
+** Doom Emacs
+[[file:.doom.d/README.org][Doom Emacs Config]]
